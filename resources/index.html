@@ -1,36 +1,110 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <style>
-        div {
-            border: 5px solid gray;
-            padding: 8px;
-        }
-
-        h1 {
-            text-align: center;
-            text-transform: uppercase;
-            color: #4CAF50;
-        }
-
-        p {
-            text-indent: 50px;
-            text-align: center;
-            letter-spacing: 3px;
-        }
-
-        a {
-            text-decoration: none;
-            color: #008CBA;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clock App</title>
+    <link rel="stylesheet" href="./styles.css">
 </head>
-<body>
 
-<div>
-    <h1>Welcome to My Test Page!!!</h1>
-    <p>This is my Web Server test page.</p>
-</div>
+<body>
+    <div class="main">
+
+        <nav class="nav-container">
+      
+
+                <button id="stopwatch" class="stopwatch">Stopwatch</button>
+
+                <button id="clock" class="clock">Clock</button>
+
+                <button id="timer" class="timer">Timer</button>
+
+
+        </nav>
+
+
+        <div id="clockContainer">
+            <div class="date-container">
+                <h3 id="date" class="date">19 July 2021</h3>
+            </div>
+
+            <div class="time-container">
+                <div class="container-hour">
+                    <h3 id="hours" class="hour">00</h3>
+                    <h3>Hours</h3>
+                </div>
+
+                <div class="container-minute">
+                    <h3 id="minutes" class="minute">00</h3>
+                    <h3>Minutes</h3>
+                </div>
+
+                <div class="container-second">
+                    <h3 id="seconds" class="second">00</h3>
+                    <h3>Seconds</h3>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="stopwatchContainer">
+            <div class="time-stopwatch-container">
+                <div class="container-hour">
+                    <h3 id="hours-stopwatch" class="hour">00</h3>
+                    <h3>Hours</h3>
+                </div>
+
+                <div class="container-minute">
+                    <h3 id="minutes-stopwatch" class="minute">00</h3>
+                    <h3>Minutes</h3>
+                </div>
+
+                <div class="container-second">
+                    <h3 id="seconds-stopwatch" class="second">00</h3>
+                    <h3>Seconds</h3>
+                </div>
+
+            </div>
+            <div class="buttons-container">
+                <button id="startBtn-stopwatch" class="button">Start</button>
+                <button id="resetBtn-stopwatch" class="button">Reset</button>
+            </div>
+        </div>
+
+
+
+        <div id="timerContainer">
+            <div class="time-timer-container">
+                <div class="container-hour">
+                    <input id="hours-timer" type="number" class="hour-input" placeholder="00" />
+                    <h3>Hours</h3>
+                </div>
+
+                <div class="container-minute">
+                    <input id="minutes-timer" type="number" class="minute-input" placeholder="00" />
+                    <h3>Minutes</h3>
+                </div>
+
+                <div class="container-second">
+                    <input id="seconds-timer" type="number" class="second-input" placeholder="00" />
+                    <h3>Seconds</h3>
+                </div>
+            </div>
+            <div class="buttons-container">
+                <button id="startBtn-timer" class="button">Start</button>
+                <button id="resetBtn-timer" class="button">Reset</button>
+            </div>
+        </div>
+
+
+    </div>
+    <script src="./Timer.js"></script>
+    <script src="./Clock.js"></script>
+    <script src="./Stopwatch.js"></script>
+    <script src="./app.js"></script>
 
 </body>
+
 </html>

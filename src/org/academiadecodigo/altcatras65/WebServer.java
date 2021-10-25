@@ -57,6 +57,10 @@ public class WebServer {
 
             this.filepath = lines[1];
 
+            if (this.filepath.equals("/")) {
+                this.filepath = "/index.html";
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -71,6 +75,10 @@ public class WebServer {
             return;
         }
 
+        if (extension.equals("css")) {
+            this.contentType = "text/css; charset=UTF-8";
+            return;
+        }
         this.contentType = "text/html; charset=UTF-8";
 
     }
@@ -83,6 +91,7 @@ public class WebServer {
         } else {
             this.responseCode = "404 Not Found";
             this.filepath = "404.html";
+            this.file = new File("resources/" + this.filepath);
         }
     }
 
