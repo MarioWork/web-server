@@ -1,0 +1,156 @@
+:root{
+    --dark_orange: rgba(190, 146, 84, 1) ;
+    --orange: rgba(255, 158, 0, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(90deg, var(--dark_orange) 0%, var(--orange)100%);
+}
+
+.main {
+    min-height: 100vh;
+}
+
+.nav-container{
+    min-height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid white;
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+}
+
+.stopwatch,
+.clock,
+.timer{
+    font-size: 2rem;
+    min-width: 10vh;
+    height: 100%;
+    text-align: center;
+    color: white;
+    margin: 1rem;
+    cursor: pointer;
+    background-color: transparent;
+    border: 0px;
+}
+
+
+.stopwatch:hover,
+.clock:hover,
+.timer:hover{
+    font-weight: bold;
+    text-decoration: overline;
+}
+
+.textDecor{
+    font-weight: bold;
+    text-decoration: overline;
+}
+
+
+
+
+
+.date-container {
+    min-height: 20vh;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.time-container {
+    min-height: 70vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.container-hour,
+.container-minute,
+.container-second {
+    min-width: 10rem;
+    max-width: 10rem;
+    min-height: 10rem;
+    text-align: center;
+    color: white;
+    margin: 2rem;
+    padding: 1rem;
+    border: 5px solid white;
+    border-radius: 50%;
+    display: block;
+    transition-timing-function: ease-in;
+}
+
+.date,
+.hour,
+.minute,
+.second {
+    font-size: 5rem;
+    color: white;
+}
+
+
+.hour-input,
+.minute-input,
+.second-input{
+    font-size: 5rem;
+    color: white;
+    background-color: transparent;
+    border: 0px;
+    text-align: center;
+    width: 100%;
+    outline: none;
+}
+
+
+
+
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+
+.time-stopwatch-container, .time-timer-container{
+    min-height: 30vh;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.buttons-container{
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    min-height: 50vh;
+    margin: 1rem;
+} 
+
+.button{
+    min-width: 15rem;
+    margin:1rem;
+    padding: 0.5rem;
+    border: 5px solid white;
+    border-radius: 2rem;
+    background-color: rgba(0, 0, 0, 0);
+    font-size: 2rem;
+    color: white;
+    font-weight: bold;
+}
+
+
+.button:hover{
+    background-color: white;
+    color:  rgba(190, 146, 84, 1) ;
+}
+
+
+
