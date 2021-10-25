@@ -3,43 +3,41 @@ package org.academiadecodigo.altcatras65;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 public class WebServer {
     private final int PORT_NUMBER = 8080;
     private ServerSocket serverSocket;
-    private Socket socket;
+    private Socket clientSocket;
     private String filepath;
     private String responseCode;
+    private String contentType;
+    private File file;
 
-    public void start() {
-        while (true) {
-            initializeSockets();
-            getFilepathFromRequestStream();
-            checkForResourceExistence();
-            buildResponse();
-            closeSockets();
-        }
-    }
-
-    private void closeSockets() {
+    public WebServer() {
         try {
 
-            serverSocket.close();
-            socket.close();
+            this.serverSocket = new ServerSocket(PORT_NUMBER);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void initializeSockets() {
+    public void start() {
+
+        while (true) {
+            initializeClientSocket();
+            getFilepathFromRequestStream();
+            getContentTypeFromFilePath();
+            checkForResourceExistence();
+            buildResponse();
+            closeClientSocket();
+        }
+    }
+
+    private void initializeClientSocket() {
         try {
-
-            this.serverSocket = new ServerSocket(PORT_NUMBER);
-            this.socket = serverSocket.accept();
-
+            this.clientSocket = serverSocket.accept();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -47,25 +45,38 @@ public class WebServer {
 
     private void getFilepathFromRequestStream() {
 
-
         try {
             //Receive Stream
-            BufferedReader in = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
+            BufferedReader in = new BufferedReader(new InputStreamReader(this.clientSocket.getInputStream()));
 
             //Create array for saving the incoming header
-            String[] line = null;
+            String[] lines = null;
 
-            line = in.readLine().split(" ");
+            lines = in.readLine().split(" ");
 
-            this.filepath = line[1];
+
+            this.filepath = lines[1];
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    private void getContentTypeFromFilePath() {
+        int index = filepath.lastIndexOf(".");
+        String extension = index > 0 ? filepath.substring(index + 1) : null;
+
+        if (extension.equals("jpeg") || extension.equals("jpg") || extension.equals("png")) {
+            this.contentType = "image/" + extension;
+            return;
+        }
+
+        this.contentType = "text/html; charset=UTF-8";
+
+    }
+
     private void checkForResourceExistence() {
-        File file = new File("resources" + this.filepath);
+        this.file = new File("resources" + this.filepath);
 
         if (file.exists()) {
             this.responseCode = "200 Document Follows";
@@ -78,26 +89,45 @@ public class WebServer {
     private void buildResponse() {
 
         try {
-            //Create the Character stream from a byte output stream
-            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 
-            //Get all the bytes from the file
-            byte[] fileBytes = Files.readAllBytes(Paths.get("resources/" + this.filepath));
-            String fileString = new String(fileBytes, "UTF-8");
+            //Create the Character stream from a byte output stream
+            DataOutputStream out = new DataOutputStream(clientSocket.getOutputStream());
 
             //Create the response header
-            String header = "HTTP/1.0 " + this.responseCode + "\r\n Content - Type: text / html; charset = UTF - 8\r\n" +
-                    " Content - Length: " + fileBytes.length + " \r\n\r\n ";
+            String header = "HTTP/1.0 " + this.responseCode + "\r\nContent-Type: " + this.contentType + "\r\n" +
+                    "Content-Length: " + this.file.length() + "\r\n\r\n";
 
-            //Concat the header with the file contents String and send the response
-            out.println(new StringBuilder().append(header).append("\n").append(fileString));
+            System.out.println("Response Header: \n" + header);
+
+            //Write response header
+            out.write(header.getBytes());
+            out.flush();
+
+            //Read the file bytes and send
+            byte[] buffer = new byte[1024];
+            FileInputStream in = new FileInputStream(file);
+
+            int numBytes;
+            while ((numBytes = in.read(buffer)) != -1) {
+                out.write(buffer, 0, numBytes);
+                out.flush();
+            }
 
             out.close();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
+    private void closeClientSocket() {
+        try {
+            clientSocket.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
