@@ -1,4 +1,4 @@
-# Web Serve
+# Web Server
 This project consists of a console application that is a Web Server. This web server acepts requests and sends responses, it allows to be requested images
 and files.
 
