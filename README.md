@@ -10,7 +10,7 @@ ant
 ## How to run
 To run the project go to the build folder inside the project and run the jar with the following command
 ```bash
-java -jar Webbie-Trivia.jar 8080
+java -jar web-server.jar 8080
 ```
   
 ## Technologies
